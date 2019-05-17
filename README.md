@@ -8,13 +8,13 @@ run any task itself.
 ```yaml
 - name: Include check-mode detection
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/checkmodedetection.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/checkmodedetection.yml"
 ```
 
 ```yaml
 - name: Include data persistency paradigm
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/datapersistency.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/datapersistency.yml"
 ```
 
 ```yaml
@@ -22,7 +22,7 @@ run any task itself.
 
 - name: Download some asset
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/get_url.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/get_url.yml"
   vars:
     url: "{{ url_variable }}"
     filename: "{{ filename_variable }}"
@@ -34,7 +34,7 @@ run any task itself.
 
 - name: Upload downloaded asset
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/copy.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/copy.yml"
   vars:
     filename: "{{ filename_variable }}"
 ```
@@ -46,7 +46,7 @@ run any task itself.
 
 - name: Include OS specific configuration
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/os-specific-vars.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/os-specific-vars.yml"
 ```
 
 ```yaml
@@ -54,7 +54,7 @@ run any task itself.
 
 - name: Include version specific configuration
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/version-specific-vars.yml
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/version-specific-vars.yml
   vars:
     version: "{{ role_name_version }}"
 ```
@@ -62,7 +62,7 @@ run any task itself.
 ```yaml
 - name: Include local facts installation
   tags: "{{ role_name }}"
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/localfacts.yml
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/localfacts.yml
   vars:
     template: myrolesfactstemplate.j2
     namespace: myroleshortname
@@ -82,7 +82,7 @@ Ansible is currently working on role-aware includes, like:
 ```yaml
 - name: Include file from silpion.lib role
   tags: "{{ role_name }}"
-  include:
+  import_tasks:
     role: silpion.lib
     file: datapersistency.yml
 ```
@@ -111,7 +111,7 @@ as required in context of local network.
 ```yaml
 - name: Include data persistency tasks
   tags: "{{ role_name }}"
-  include: "{{ role_name }}/../silpion.lib/tasks/datapersistency.yml"
+  include_tasks: "{{ role_name }}/../silpion.lib/tasks/datapersistency.yml"
 ```
 
 By default this installs one directory on the workstation and one on
@@ -138,7 +138,7 @@ and requires the new format of `algorithm:checksum`.
 ```yaml
 - name: Download some assets with silpion.lib/get_url
   tags: "{{ role_name }}"
-  include: "{{ role_name }}/../silpion.lib/tasks/get_url.yml"
+  include_tasks: "{{ role_name }}/../silpion.lib/tasks/get_url.yml"
   vars:
     src: "{{ url }}"
     filename: "{{ filename }}"
@@ -182,7 +182,7 @@ Uploads will be stored in ``{{ lib_persistent_data_path_remote }}``.
   with_items:
     - filename1
     - filename2
-  include: "{{ playbook_dir }}/roles/silpion.lib/tasks/copy.yml"
+  include_tasks: "{{ playbook_dir }}/roles/silpion.lib/tasks/copy.yml"
   vars:
     filename: "{{ item }}"
 ```
@@ -215,7 +215,7 @@ lib role provides tasks for check mode detection. Including
 ```yaml
 - name: Include check mode detection
   tags: "{{ role_name }}"
-  include: "{{ role_name }}/../silpion.lib/tasks/checkmodedetection.yml
+  include_tasks: "{{ role_name }}/../silpion.lib/tasks/checkmodedetection.yml
 
 - name: Run a task when Ansible is NOT in --check mode
   tags: "{{ role_name }}"
@@ -234,7 +234,7 @@ changed events when the template has been deployed.
 ```yaml
 - name: Include local facts installation
   tags: "{{ role_name }}"
-  include: "{{ role_name }}/../silpion.lib/tasks/localfacts.yml"
+  include_tasks: "{{ role_name }}/../silpion.lib/tasks/localfacts.yml"
   vars:
     template: "{{ role_name_fact_template }}.j2"
     namespace: myroleshortname

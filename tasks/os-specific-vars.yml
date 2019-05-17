@@ -1,7 +1,7 @@
 ---
 # TODO [kraM] Fix assumption on roles path in play -- Mon 06 Jun 2016 03:00:13 PM CEST
 #             There are chances that Ansible will support role-aware includes
-#             with the next releases, e.g. - include: role=silpion.lib file=vars/versions/noop.yml
+#             with the next releases, e.g. - import_playbook: role=silpion.lib file=vars/versions/noop.yml
 
 # Roles commonly include variables for OS specific configuration.
 - name: Include OS specific vars
